@@ -1,10 +1,23 @@
 <?xml version="1.0"?>
-<robot  xmlns:xacro="http://www.ros.org/wiki/xacro" name="firefighter" >
+<robot  xmlns:xacro="http://www.ros.org/wiki/xacro" name="mycobot" >
 	
-<xacro:property name="width" value=".2" />
+    <xacro:property name="width" value=".2" />
+    <!-- Useful Variables (Properties) -->
+    <xacro:property name="PI" value="3.14159265359" />
+    <xacro:property name="effort" value="30" />
+    <xacro:property name="velocity" value="10" />
 
+    <xacro:macro name="default_interial" params="mass">
+        <inertial>
+            <mass value="${mass}"/>
+            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+        </inertial>
+    </xacro:macro>
+
+  <link name="world"/>
 
   <link name="base_link">
+  <xacro:default_interial mass="1.0"/>
     <visual>
       <geometry>
 	     <!--- 0.0 0 -0.04  1.5708 3.14159-->
@@ -12,19 +25,34 @@
       </geometry>
     <origin xyz = "0.0 0 0 " rpy = " 0 0 3.14159"/>
     </visual>
+    <collision>
+      <geometry>
+	     <!--- 0.0 0 -0.04  1.5708 3.14159-->
+       <mesh filename="package://mycobot_description/urdf/joint1_jet.dae"/>
+      </geometry>
+    <origin xyz = "0.0 0 0 " rpy = " 0 0 3.14159"/>
+    </collision>
   </link>
 
   <link name="link_joint2">
+  <xacro:default_interial mass="0.5"/>
     <visual>
       <geometry>
        <mesh filename="package://mycobot_description/urdf/joint2.dae"/>
       </geometry>
     <origin xyz = "0.0 0 -0.06096 " rpy = " 0 0 -1.5708"/>
     </visual>
+    <collision>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/joint2.dae"/>
+      </geometry>
+    <origin xyz = "0.0 0 -0.06096 " rpy = " 0 0 -1.5708"/>
+    </collision>
   </link>
 
 
   <link name="link_joint3">
+  <xacro:default_interial mass="0.5"/>
     <visual>
       <geometry>
        
@@ -32,10 +60,18 @@
       </geometry>
     <origin xyz = "0.0 0 0.03256 " rpy = " 0 -1.5708 0"/>
     </visual>
+    <collision>
+      <geometry>
+       
+       <mesh filename="package://mycobot_description/urdf/joint3.dae"/>
+      </geometry>
+    <origin xyz = "0.0 0 0.03256 " rpy = " 0 -1.5708 0"/>
+    </collision>
   </link>
 
 
   <link name="link_joint4">
+  <xacro:default_interial mass="0.5"/>
     <visual>
       <geometry>
        <!--- 0.0 0 -0.04 -->
@@ -43,23 +79,37 @@
       </geometry>
     <origin xyz = "0.0 0 0.03056 " rpy = " 0 -1.5708 0"/>
     </visual>
+    <collision>
+      <geometry>
+       <!--- 0.0 0 -0.04 -->
+       <mesh filename="package://mycobot_description/urdf/joint4.dae"/>
+      </geometry>
+    <origin xyz = "0.0 0 0.03056 " rpy = " 0 -1.5708 0"/>
+    </collision>
   </link>
 
 
 
 
 <link name="link_joint5">
+  <xacro:default_interial mass="0.4"/>
     <visual>
       <geometry>
-       <!--- 0.0 0 -0.04 -->
        <mesh filename="package://mycobot_description/urdf/joint5.dae"/>
       </geometry>
-    <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
+      <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
     </visual>
+    <collision>
+      <geometry>
+       <mesh filename="package://mycobot_description/urdf/joint5.dae"/>
+      </geometry>
+      <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
+    </collision>
   </link>
 
 
   <link name="link_joint6">
+  <xacro:default_interial mass="0.5"/>
     <visual>
       <geometry>
        <!--- 0.0 0 -0.04 -->
@@ -67,10 +117,18 @@
       </geometry>
     <origin xyz = "0 0.00 -0.038 " rpy = " 0 0 0"/>
     </visual>
+    <collision>
+      <geometry>
+       <!--- 0.0 0 -0.04 -->
+       <mesh filename="package://mycobot_description/urdf/joint6.dae"/>
+      </geometry>
+    <origin xyz = "0 0.00 -0.038 " rpy = " 0 0 0"/>
+    </collision>
   </link>
 
 
   <link name="link_joint6_flange">
+  <xacro:default_interial mass="0.05"/>
     <visual>
       <geometry>
        <!--- 0.0 0 -0.04 -->
@@ -78,8 +136,21 @@
       </geometry>
     <origin xyz = "0.0 0 -0.012 " rpy = " 0 0 0"/>
     </visual>
+    <collision>
+      <geometry>
+       <!--- 0.0 0 -0.04 -->
+       <mesh filename="package://mycobot_description/urdf/joint7.dae"/>
+      </geometry>
+    <origin xyz = "0.0 0 -0.012 " rpy = " 0 0 0"/>
+    </collision>
   </link>
 
+      <!-- Joints -->  
+    <joint name="virtual_joint" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint> 
 
 
     <joint name="joint_1" type="revolute">
@@ -109,7 +180,6 @@
   </joint>
 
 
-
   <joint name="joint_4" type="revolute">
     <axis xyz=" 0 0 1"/>
     <limit effort = "1000.0" lower = "-3.14" upper = "3.14159" velocity = "0"/>
@@ -133,6 +203,6 @@
     <child link="link_joint6_flange"/>
     <origin xyz= "0 0.0456 0" rpy = "-1.5708 0 0"/>  
   </joint>
-
+  
 </robot>
 
