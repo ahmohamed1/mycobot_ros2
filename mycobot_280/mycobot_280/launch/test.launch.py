@@ -4,7 +4,10 @@ from ament_index_python import get_package_share_path
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
-
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition, UnlessCondition
+from launch.substitutions import Command, LaunchConfiguration
 
 
 def generate_launch_description():
@@ -14,7 +17,7 @@ def generate_launch_description():
         name="model",
         default_value=os.path.join(
             get_package_share_path("mycobot_description"),
-            "urdf/mycobot.urdf.xacro"
+            "urdf/mycobot_urdf.urdf.xacro"
         )
     )
     res.append(model_launch_arg)

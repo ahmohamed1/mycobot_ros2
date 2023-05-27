@@ -15,8 +15,6 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/urdf', glob("urdf/*")),
-        ('share/' + package_name + '/meshes'+'/collision', glob("meshes/collision/*")),
-        ('share/' + package_name + '/meshes'+ '/visual', glob("meshes/visual/*")),
 
     ],
     install_requires=['setuptools'],
