@@ -88,25 +88,23 @@
     </collision>
   </link>
 
-
-
-
 <link name="link_joint5">
-  <xacro:default_interial mass="0.4"/>
+  <xacro:default_interial mass="0.5"/>
     <visual>
       <geometry>
+       <!--- 0.0 0 -0.04 -->
        <mesh filename="package://mycobot_description/urdf/joint5.dae"/>
       </geometry>
-      <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
+    <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
     </visual>
     <collision>
       <geometry>
+       <!--- 0.0 0 -0.04 -->
        <mesh filename="package://mycobot_description/urdf/joint5.dae"/>
       </geometry>
-      <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
+    <origin xyz = "0.0 0 -0.03356 " rpy = " 0 -1.5708 1.5708"/>
     </collision>
   </link>
-
 
   <link name="link_joint6">
   <xacro:default_interial mass="0.5"/>
@@ -204,5 +202,65 @@
     <origin xyz= "0 0.0456 0" rpy = "-1.5708 0 0"/>  
   </joint>
   
+  <ros2_control name="GazeboSimSystem" type="system">
+  <hardware>
+    <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+  </hardware>
+
+    <joint name="joint_1">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface> 
+        <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint_2">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface> 
+        <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint_3">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface> 
+        <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint_4">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface> 
+        <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint_5">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface> 
+        <state_interface name="velocity"/>
+    </joint>
+    
+    <joint name="joint_6">
+        <command_interface name="position"/>
+        <state_interface name="position">
+            <param name="initial_value">0.0</param>
+        </state_interface> 
+        <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find mycobot_280)/config/mycobot_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
 </robot>
 

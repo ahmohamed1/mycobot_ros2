@@ -35,12 +35,12 @@ def generate_launch_description():
 
     load_joint_state_controller = ExecuteProcess(
         cmd=['ros2','control', 'load_controller', '--set-state', 'active',
-             'arm_controller'],
+             'joint_state_broadcaster'],
              output='screen'
     )
     load_arm_controller = ExecuteProcess(
         cmd=['ros2','control', 'load_controller', '--set-state', 'active',
-             'joint_state_broadcaster'],
+             'arm_controller'],
              output='screen'
     )
 
@@ -61,6 +61,16 @@ def generate_launch_description():
 
     # Run the node
     return LaunchDescription([
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=spawn_entity,
+                on_exit=[load_joint_state_controller])
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_controller,
+                on_exit=[load_arm_controller])
+        ),
         gazebo,
         node_robot_state_publisher,
         spawn_entity
