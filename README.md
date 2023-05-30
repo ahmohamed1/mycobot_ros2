@@ -1,10 +1,7 @@
 # mycobot_ros2
 
-[![jaywcjlove/sb](https://jaywcjlove.github.io/sb/lang/chinese.svg)]([https://www.elephantrobotics.com/docs/myCobot/3-development/4-ros&moveit/](https://docs.elephantrobotics.com/docs/gitbook/12-ApplicationBaseROS/12.2-ROS2/12.2.1-ROS2%E7%9A%84%E5%AE%89%E8%A3%85.html))
+**This repository modified to work with mycobot_280 where it integrated with gazebo and moveit2**
 
-[中文文档](https://docs.elephantrobotics.com/docs/gitbook/12-ApplicationBaseROS/12.2-ROS2/12.2.1-ROS2%E7%9A%84%E5%AE%89%E8%A3%85.html)
-
-myCobot ROS2 package
 
 **Notes**:
 
